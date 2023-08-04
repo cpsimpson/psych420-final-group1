@@ -134,13 +134,18 @@ class Factor:
         self._tree = BinarySearchTree(data_monitor)
         self._weight = 1
         self.data_monitor = data_monitor
-        self.fuzzy_threshold = fuzzy_threshold
+        self._fuzzy_threshold = fuzzy_threshold
 
     def __str__(self):
         return f"Weight: {self._weight} \n Tree: {self._tree}"
 
-    def set_fuzzy_threshold(self, fuzzy_threshold):
-        self.fuzzy_threshold = fuzzy_threshold
+    @property
+    def fuzzy_threshold(self):
+        return self._fuzzy_threshold
+
+    @fuzzy_threshold.setter
+    def fuzzy_threshold(self, fuzzy_threshold):
+        self._fuzzy_threshold = fuzzy_threshold
 
     def get_error(self, item, value):
         # TODO: pretty sure I'm not using weight the way we want to here.

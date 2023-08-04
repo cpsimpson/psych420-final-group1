@@ -9,7 +9,7 @@ class Brain:
         self.cortex = Cortex(data_monitor)
         self.hippocampus = Hippocampus(self.cortex, data_monitor)
         self.distraction_level = distraction_level
-        self.fuzzy_threshold = fuzzy_threshold
+        self._fuzzy_threshold = fuzzy_threshold
         self.data_monitor = data_monitor
 
     def __str__(self):
@@ -18,11 +18,15 @@ class Brain:
     def set_distraction_level(self, distraction_level):
         self.distraction_level = distraction_level
 
-    # TODO: fix this to be a property throughout
-    def set_fuzzy_threshold(self,  fuzzy_threshold):
-        self.fuzzy_threshold = fuzzy_threshold
-        self.cortex.set_fuzzy_threshold(fuzzy_threshold)
-        self.hippocampus.set_fuzzy_threshold(fuzzy_threshold)
+    @property
+    def fuzzy_threshold(self):
+        return self._fuzzy_threshold
+
+    @fuzzy_threshold.setter
+    def fuzzy_threshold(self,  fuzzy_threshold):
+        self._fuzzy_threshold = fuzzy_threshold
+        self.cortex.fuzzy_threshold = fuzzy_threshold
+        self.hippocampus.fuzzy_threshold = fuzzy_threshold
 
     def time_tick(self):
 
