@@ -21,7 +21,7 @@ class Cortex:
     def fuzzy_threshold(self, fuzzy_threshold):
         self._fuzzy_threshold = fuzzy_threshold
         self.long_term_memory.fuzzy_threshold = fuzzy_threshold
-        self.sensory_memory.set_fuzzy_threshold(fuzzy_threshold)
+        self.sensory_memory.fuzzy_threshold = fuzzy_threshold
 
     def preload(self, word, valence, arousal, dominance):
         self.sensory_memory.prime(word, valence, arousal, dominance)

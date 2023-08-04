@@ -108,13 +108,18 @@ class BinarySearchTree:
 
     def __init__(self, data_monitor, fuzzy_threshold=0.03):
         self.root = Node(data_monitor, None, None)
-        self.fuzzy_threshold = fuzzy_threshold
+        self._fuzzy_threshold = fuzzy_threshold
 
     def __str__(self):
         return f"{self.root.inorder([])}"
 
-    def set_fuzzy_threshold(self,  fuzzy_threshold):
-        self.fuzzy_threshold = fuzzy_threshold
+    @property
+    def fuzzy_threshold(self):
+        return self._fuzzy_threshold
+
+    @fuzzy_threshold.setter
+    def fuzzy_threshold(self,  fuzzy_threshold):
+        self._fuzzy_threshold = fuzzy_threshold
 
     def add(self, value, data):
         self.root.insert(value, data)
@@ -164,7 +169,6 @@ class Factor:
                 if self.get_error(item, value) <= ERROR_THRESHOLD:
                     closest_matches += item[0]
         return closest_matches
-
 
     def adjust_weight(self, word, value, was_correct):
         # TODO: This should likely be using something other than a fixed value.
