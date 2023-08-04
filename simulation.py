@@ -198,6 +198,7 @@ class Simulation:
     def rehearsal_list(self, value):
         self._rehearsal_list = value
 
+    @property
     def stm_purge_strategy(self):
         return self.brain.hippocampus.short_term_memory.purge_strategy
 
