@@ -25,7 +25,7 @@ class LongTermMemory:
 
     @fuzzy_threshold.setter
     def fuzzy_threshold(self, fuzzy_threshold):
-        self.fuzzy_threshold = fuzzy_threshold
+        self._fuzzy_threshold = fuzzy_threshold
         self._valence_factor.fuzzy_threshold = fuzzy_threshold
         self._dominance_factor.fuzzy_threshold = fuzzy_threshold
         self._arousal_factor.fuzzy_threshold = fuzzy_threshold
