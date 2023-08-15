@@ -163,7 +163,7 @@ class ShortTermMemory:
     def fuzz(self, memory):
         max_duration = self.current_max_duration()
 
-        # TODO: Adjust this factor to be more realistic. Find data.
+        # TODO: Adjust this factor to be more realistic. Find data?
         fuzz_factor = (1 / ((max_duration - memory.age) or 1) ** 2)
 
         updated_value = (memory.value[0] + fuzz_factor, memory.value[1] + fuzz_factor, memory.value[2] + fuzz_factor)

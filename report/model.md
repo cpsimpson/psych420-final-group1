@@ -15,27 +15,85 @@ The core functionality of our model can be found in the model -> brain -> concep
 Each of the memory types is implemented within dedicated files (and classes). 
 
 ### Sensory Memory
+
 The Sensory memory gets primed with a word list at the start of the simulation. 
 This loads all "activation" patterns into data structures within SensoryMemory. 
 For activation patterns, as mentioned above we have chosen to use the valence, dominance, 
 and arousal mean scores mapped to words. As a way to simplify implementation we store this
-as both a dictionary mapping and a series of binary trees (within the Factor class). 
+as both a dictionary mapping and a series of binary search trees (within the [Factor](#Factor) class). 
 
 ### Short Term Memory
 
+The majority of the functionality that we implemented is part of short term memory. 
+
+The ShortTermMemory class has a list of [registers](#Memory Register), which has a varying capacity of 
+7 plus or minus 2. We implemented this as a random variance. This could be improved by
+having settings in the simulation to represent factors that influence short term memory 
+capacity such as distraction level rather than being completely random.
+
+As data is "sensed" it is pushed into the memory registers. In the simulation we 
+randomly sense data in the cortex or explicitly through the "rehearse" function.
+
+When an item enters short term memory it is assigned a baseline strength. This 
+strength is increased if the item exists in long term memory already 
+(i.e. through familiarity). It is also increased with repetition. The strength 
+decreases as time passes. We have currently implemented this as a constant decrease
+over time, but it should likely be reduced by an exponential decay factor instead.
+If the strength threshold is reached the memory is pushed into long term memory.
+
+As an item remains in short term memory its total age increases. In addition to 
+total age, we keep track of age since last repetition (stored as "age"). For this 
+value, we reset it any time we see a duplicate item enter memory. If the 
+age (not total_age), of an item is greater than the maximum duration a memory 
+can exist it will be removed from the registers. The maximum duration is a value 
+between 15 and 30. Its value is also implemented as a random variance, and could be 
+improved similarly to the maximum capacity value.
+
+If the maximum capacity is reached items are removed from the registers. 
+We implemented two possible simple strategies for 
+removing these extra items. The default strategy is "oldest", where the item that 
+has been in memory the longest, without recent repetition is removed. The second
+strategy is "weakest". Using this strategy, the items with the lowest strength are 
+removed. 
+
+
+We implemented memory deterioration, which we refer to as fuzziness. We represented
+deterioration by creating drift in the valence, dominance, and arousal values that are 
+stored in the memory registers. As time passes, the values drift further from their 
+original values. Thus making it more difficult to match the original word to the values 
+in memory. We have a "Fuzzy Threshold" that can be manipulated in the simulation, which 
+allows for non-exact matches when looking up values in either sensory or long term memory. 
+A fuzzy comparison is also used when comparing values for possible repetition. 
+
+#### Memory Register
+
+The MemoryRegister stores the value of the memory along with its age 
+(how long since it last entered memory in seconds), 
+its total age (contiguous seconds since it first entered stm),
+its strength, and the original value (before any drift). The original value 
+was stored to make some implementation details of the simulation easier, but 
+is not used as part of the model. 
 
 ### Long Term Memory
+
+For Long Term memory we again store data in instances of our [Factor](#Factor) class.
+
+As a possible future enhancement, we considered adding decay to the memories stored in long term memory. 
+This would be at a much slower rate than the decay we implemented for short term memory. 
 
 ### Data Structures
 
 #### Binary Search Tree
+
 Holds a reference to the root node of the tree. All the hard work is done in the Node class.
 
 #### Node
+
 Stored in the binary search trees. Each node contains a value (ex. the valence mean score), a 
 list of data (ex. the word), and references to its child nodes - left and right.
 
 #### Factor
+
 Factors each store a binary search tree along with a weight. We create one Factor object
 for each of the factors we are using in our representation of words 
 (valence, dominance, arousal). 
@@ -46,7 +104,7 @@ The weight would be used to indicate which of the factors (valence, dominance, a
 would be more influential when looking up values in long term memory. This was not implemented.
 
 
-## How we could improve our model:
+## Potential Larger-Scale Model Improvements
 
 Currently, our memory model examines drift along three affective 
 dimensions using a binary search tree to index words by their 
