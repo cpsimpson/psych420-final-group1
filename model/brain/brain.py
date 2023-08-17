@@ -59,7 +59,7 @@ class Brain:
         for word in word_list:
             encoded_word = self.cortex.sensory_memory.encode(word)
             if encoded_word:
-                remembered_word = self.cortex.long_term_memory.lookup(*encoded_word)
+                remembered_word = self.cortex.retrieve_memory(*encoded_word)
                 if remembered_word:
                     found.append(remembered_word)
         return found

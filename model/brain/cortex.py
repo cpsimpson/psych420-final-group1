@@ -42,8 +42,9 @@ class Cortex:
         # TODO: We should do something with the strength, age at the point we
         # are transferring from short term to long term memory
         meaning = self.fuzzy_lookup(*memory.original_value)
-        self.data_monitor.log(f"Storing Meaning {meaning}, values {memory.value}")
-        self.long_term_memory.prime(meaning, *memory.value)
+        for result in meaning:
+            self.data_monitor.log(f"Storing Meaning {result}, values {memory.value}")
+            self.long_term_memory.prime(result, *memory.value)
 
     def retrieve_memory(self, valence, arousal, dominance):
         return self.long_term_memory.lookup(valence, arousal, dominance)
