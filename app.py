@@ -15,108 +15,103 @@ app_ui = ui.page_fluid(
     #     ui.panel_sidebar(
     #     ),
     ui.navset_tab(
-   		ui.nav("Background Information",
-   			ui.panel_main(
-   			get_markdown("background", report_path),
-   			)
+        ui.nav("Background Information",
+               # ui.panel_main(
+               get_markdown("background", report_path),
+               # )
+               ),
+        ui.nav("Our Model",
+               get_markdown("model", report_path),
+               ),
+
+        ui.nav("Simulation 1",
+               # ui.panel_main(
+               get_markdown("simulation_1", report_path),
+               ui.br(),
+               ui.input_slider(id="distraction_level", label="Distraction Level", value=20, min=0, max=100),
+               ui.input_slider(id="rehearsal_interval", label="Rehearsal Interval (s)", value=10, min=0, max=100),
+               ui.input_slider(id="fuzzy_threshold", label="Fuzziness Threshold", value=3, min=0, max=1000),
+               ui.input_numeric(id="total_time", label="Simulation Time Length (s)", value=100, min=0, max=10000),
+               ui.input_select(id="purge_strategy", label="STM Purge Strategy", choices=("oldest", "weakest")),
+               ui.input_text(id="word_list", label="Words to Rehearse", value="person, man, woman, camera, tv"),
+               ui.input_action_button("run_simulation_1", "Re-Run Simulation"),
+               # ui.input_action_button("toggle_trace", "Toggle Trace Log"),
+               ui.br(),
+               ui.hr(),
+               ui.h4("Simulation Results"),
+               ui.h5("Words Rehearsed"),
+               ui.output_text_verbatim("rehearsal_words"),
+
+               ui.h5("Words Recalled from STM"),
+               ui.output_text_verbatim("simulation_1_recall"),
+
+               ui.h5("Original Words Remembered from LTM"),
+               ui.output_text_verbatim("simulation_1_memory"),
+
+               ui.h5("STM Memory Age Fuzzing Factor over Time"),
+               ui.output_plot("simulation_1_fuzz_factors"),
+               ui.h5("STM Memory Age over Time"),
+               ui.output_plot("simulation_1_rehearsals"),
+               ui.h5("Max Ages"),
+               ui.output_plot("simulation_1_max_ages"),
+               ui.h5("Output Trace", id="s1-trace-header"),
+               ui.output_ui("simulation_1_trace"),
+
+               ),
+        ui.nav(
+            "Simulation 2",
+            get_markdown("simulation_2", report_path),
+            ui.br(),
+            ui.input_numeric(id="s2_total_time", label="Simulation Time Length (s)", value=5, min=0, max=100),
+            ui.input_slider(id="s2_fuzzy_threshold", label="Fuzziness Threshold", value=3, min=0, max=1000),
+            ui.input_select(id="s2_purge_strategy", label="STM Purge Strategy", choices=("oldest", "weakest")),
+            ui.input_text(id="s2_word_list", label="Words to Rehearse", value="person, man, woman, camera, tv"),
+            ui.input_action_button("run_simulation_2", "Re-Run Simulation"),
+            ui.br(),
+            ui.hr(),
+            ui.h4("Simulation 2 Results"),
+            ui.h5("Words To Remember"),
+            ui.output_text_verbatim("simulation_2_rehearsal_words"),
+            ui.h5("Recalled from Short Term Memory"),
+            ui.output_text_verbatim("simulation_2_recall"),
+            ui.h5("STM Memory Age Fuzzing Factor over Time"),
+            ui.output_plot("simulation_2_fuzz_factors"),
+            ui.h5("Word Fuzziness in STM over Time"),
+            ui.output_plot("simulation_2_decayed_word_factors"),
+            ui.output_plot("simulation_2_decayed_word_factors_3d", width="800px", height="800px"),
+            ui.h5("Max Ages"),
+            ui.output_plot("simulation_2_max_ages"),
+            ui.h5("Output Trace", id="s2-trace-header"),
+            # ui.input_action_button("s2_toggle_trace", "Toggle Trace Log"),
+            ui.output_ui("simulation_2_trace"),
+
         ),
-   		ui.nav("Our Model",
-   			get_markdown("model", report_path),
-   			),
-   		
-   		ui.nav("Coding and Simulations",
-   			ui.panel_main(
-   			get_markdown("simulation_1", report_path),
-        	ui.br(),
-        	ui.input_slider(id="distraction_level", label="Distraction Level", value=20, min=0, max=100),
-        	ui.input_slider(id="rehearsal_interval", label="Rehearsal Interval (s)", value=10, min=0, max=100),
-        	ui.input_slider(id="fuzzy_threshold", label="Fuzziness Threshold", value=3, min=0, max=1000),
-        	ui.input_numeric(id="total_time", label="Simulation Time Length (s)", value=100, min=0, max=10000),
-        	ui.input_select(id="purge_strategy", label="STM Purge Strategy", choices=("oldest", "weakest")),
-        	ui.input_text(id="word_list", label="Words to Rehearse", value="person, man, woman, camera, tv"),
-        	ui.input_action_button("run_simulation_1", "Re-Run Simulation"),
-        	# ui.input_action_button("toggle_trace", "Toggle Trace Log"),
-       		ui.br(),
-        	ui.hr(),
-        	ui.h4("Simulation Results"),
-        	ui.h5("Words Rehearsed"),
-        	ui.output_text_verbatim("rehearsal_words"),
+        ui.nav(
+            "Simulation 3",
+            get_markdown("simulation_3", report_path),
+            ui.br(),
+            ui.input_numeric(id="s3_num_trials", label="Number of trials in experiment", value=10, min=0,
+                             max=1000),
+            ui.input_action_button("run_simulation_3", "Re-Run Simulation"),
+            ui.br(),
+            ui.hr(),
 
-        	ui.h5("Words Recalled from STM"),
-        	ui.output_text_verbatim("simulation_1_recall"),
+            ui.h4("Simulation 3 Results - Rundus"),
+            ui.h5("Average Probability of recall"),
+            ui.output_plot("simulation_3_recall_probs"),
 
-        	ui.h5("Original Words Remembered from LTM"),
-        	ui.output_text_verbatim("simulation_1_memory"),
+            ui.h5("Output Trace", id="s3-trace-header"),
+            ui.output_ui("simulation_3_trace"),
+        ),
+        ui.nav(
+            "References",
+            get_markdown("references", report_path),
+        ),
 
-        	ui.h5("STM Memory Age Fuzzing Factor over Time"),
-        	ui.output_plot("simulation_1_fuzz_factors"),
-        	ui.h5("STM Memory Age over Time"),
-        	ui.output_plot("simulation_1_rehearsals"),
-        	ui.h5("Max Ages"),
-        	ui.output_plot("simulation_1_max_ages"),
-        	ui.h5("Output Trace", id="s1-trace-header"),
-        	ui.output_ui("simulation_1_trace"),
-
-        	ui.br(), ui.br(),
-        	ui.hr(), ui.hr(),
-        	ui.br(), ui.br(),
-
-        	get_markdown("simulation_2", report_path),
-        	ui.br(),
-        	ui.input_numeric(id="s2_total_time", label="Simulation Time Length (s)", value=5, min=0, max=100),
-        	ui.input_slider(id="s2_fuzzy_threshold", label="Fuzziness Threshold", value=3, min=0, max=1000),
-        	ui.input_select(id="s2_purge_strategy", label="STM Purge Strategy", choices=("oldest", "weakest")),
-        	ui.input_text(id="s2_word_list", label="Words to Rehearse", value="person, man, woman, camera, tv"),
-       		ui.input_action_button("run_simulation_2", "Re-Run Simulation"),
-        	ui.br(),
-        	ui.hr(),
-        	ui.h4("Simulation 2 Results"),
-        	ui.h5("Words To Remember"),
-        	ui.output_text_verbatim("simulation_2_rehearsal_words"),
-        	ui.h5("Recalled from Short Term Memory"),
-        	ui.output_text_verbatim("simulation_2_recall"),
-        	ui.h5("STM Memory Age Fuzzing Factor over Time"),
-        	ui.output_plot("simulation_2_fuzz_factors"),
-        	ui.h5("Word Fuzziness in STM over Time"),
-        	ui.output_plot("simulation_2_decayed_word_factors"),
-        	ui.output_plot("simulation_2_decayed_word_factors_3d", width="800px", height="800px"),
-        	ui.h5("Max Ages"),
-        	ui.output_plot("simulation_2_max_ages"),
-        	ui.h5("Output Trace", id="s2-trace-header"),
-        	# ui.input_action_button("s2_toggle_trace", "Toggle Trace Log"),
-        	ui.output_ui("simulation_2_trace"),
-
-        	ui.br(),
-        	ui.hr(),
-        	ui.hr(),
-        	ui.br(),
-        	get_markdown("simulation_3", report_path),
-        	ui.br(),
-        	ui.input_numeric(id="s3_num_trials", label="Number of trials in experiment", value=10, min=0, max=1000),
-        	ui.input_action_button("run_simulation_3", "Re-Run Simulation"),
-        	ui.br(),
-        	ui.hr(),
-
-       		ui.h4("Simulation 3 Results - Rundus"),
-        	ui.h5("Average Probability of recall"),
-        	ui.output_plot("simulation_3_recall_probs"),
-
-        	ui.h5("Output Trace", id="s3-trace-header"),
-        	ui.output_ui("simulation_3_trace"),
-
-   			)
-		# )
-   		),
-   		ui.nav("References",
-        	get_markdown("references", report_path),
-   			),
-   
-		))
-
+    ))
 
 
 def server(input: Inputs, output: Outputs, session: Session):
-
     s = reactive.Value(Simulation())
     s2 = reactive.Value(Simulation())
     s3 = reactive.Value(Simulation())
@@ -176,7 +171,8 @@ def server(input: Inputs, output: Outputs, session: Session):
     @output
     @render.ui
     def images() -> ui.Tag:
-        img = ui.img(src="Information_Processing_Model_-_Atkinson_&_Shiffrin.jpg", style="width: 400px; display: hidden;")
+        img = ui.img(src="Information_Processing_Model_-_Atkinson_&_Shiffrin.jpg",
+                     style="width: 400px; display: hidden;")
         return img
 
     @output
@@ -208,7 +204,8 @@ def server(input: Inputs, output: Outputs, session: Session):
 
         for word, item_series in series.items():
             if word in s.get().rehearsal_list:
-                ax.plot(item_series["xs"], item_series["ys"], marker='o', markersize=2.0, label=f"Rehearsal Point - {word}", linestyle='')
+                ax.plot(item_series["xs"], item_series["ys"], marker='o', markersize=2.0,
+                        label=f"Rehearsal Point - {word}", linestyle='')
 
         age_series = s.get().data_monitor.word_age()
 
@@ -252,7 +249,8 @@ def server(input: Inputs, output: Outputs, session: Session):
         s2.get().stm_purge_strategy = purge_strategy
         p.set(20 / 30, message="Simulating time passing, please wait...")
         g = ""
-        for word_pairs in s2.get().run_2(distraction_level=distraction_level, total_time=total_time, fuzzy_threshold=fuzziness_threshold):
+        for word_pairs in s2.get().run_2(distraction_level=distraction_level, total_time=total_time,
+                                         fuzzy_threshold=fuzziness_threshold):
             p.set(30 / 30, message="Recalling from short term memory, please wait...")
             g += f"Input: {word_pairs[0]} Recalled: {word_pairs[1]} Strength: {word_pairs[2]} <br>"
         p.close()
@@ -326,7 +324,8 @@ def server(input: Inputs, output: Outputs, session: Session):
 
         for item, item_series in series.items():
             word = s2.get().lookup_word_from_encoding(item)
-            ax.plot3D(item_series["valence"], item_series["arousal"], item_series["dominance"], linewidth=1.0, label=word)
+            ax.plot3D(item_series["valence"], item_series["arousal"], item_series["dominance"], linewidth=1.0,
+                      label=word)
 
         ax.legend()
         ax.set_xlabel('Valence')
