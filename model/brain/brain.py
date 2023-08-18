@@ -50,9 +50,10 @@ class Brain:
 
     def rehearse(self, word):
         sensory_input = self.cortex.sensory_memory.encode(word)
-        self.data_monitor.log(f"Rehearsing {sensory_input}")
-        self.data_monitor.add_data_point(self.data_monitor.Category.STM, self.data_monitor.Action.REHEARSE, word)
-        self.hippocampus.short_term_memory.add(sensory_input)
+        if sensory_input:
+            self.data_monitor.log(f"Rehearsing {sensory_input}")
+            self.data_monitor.add_data_point(self.data_monitor.Category.STM, self.data_monitor.Action.REHEARSE, word)
+            self.hippocampus.short_term_memory.add(sensory_input)
 
     def remember_from_ltm(self, word_list):
         found = []

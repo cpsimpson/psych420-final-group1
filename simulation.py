@@ -36,6 +36,9 @@ class DataMonitor:
     def log(self, trace):
         self.trace_log_lines.append(trace)
 
+    def extend_log(self, log_lines):
+        self.trace_log_lines.extend(log_lines)
+
     def add_data_point(self, category, action, value):
         self.data_points[category][action].append([self.elapsed_time, value])
 
@@ -51,10 +54,6 @@ class DataMonitor:
             series[values[0]]["xs"].append(time)
             series[values[0]]["ys"].append(values[4])
 
-        # for time, values in self.data_points[self.Category.STM][self.Action.FORGET]:
-        #     # memory.original_value, memory.value, memory.age, memory.total_age
-        #     series[values[0]]["xs"].append(time)
-        #     series[values[0]]["ys"].append(0)
         return series
 
     def rehearsal_points(self):
@@ -138,51 +137,49 @@ class Simulation:
         self.data_monitor = DataMonitor()
         self.brain = Brain(self.data_monitor)
         self._rehearsal_list = word_list
+        self._elapsed_time = 0
+
+    def time_tick(self, brain):
+        self._elapsed_time += 1
+
+        if self._elapsed_time % 10 == 0:
+            self.data_monitor.log(f"Total Elapsed Time: {self._elapsed_time} seconds")
+
+        brain.time_tick()
+        brain.data_monitor.tick()
 
     def run_1(self, distraction_level=0.2, total_time=100, rehearsal_interval=10, fuzzy_threshold=0.03):
-        self.brain.distraction_level = distraction_level
-        self.brain.fuzzy_threshold = fuzzy_threshold
+        if total_time:
+            self.brain.distraction_level = distraction_level
+            self.brain.fuzzy_threshold = fuzzy_threshold
 
-        for i in range(total_time):
-            self.data_monitor.tick()
-            self.brain.time_tick()
+            for i in range(total_time):
+                self.time_tick(self.brain)
 
-            rehearsal_index = i % rehearsal_interval
-            if rehearsal_index < len(self.rehearsal_list):
-                self.brain.rehearse(self.rehearsal_list[rehearsal_index])
+                rehearsal_index = i % rehearsal_interval
+                if rehearsal_index < len(self.rehearsal_list):
+                    self.brain.rehearse(self.rehearsal_list[rehearsal_index])
 
-        # self.data_monitor.log(f"Current Brain State: \n {self.brain}")
-        # print(f"Current Brain State: \n {self.brain}")
-        # for word_pairs in self.brain.remember(with_original=True):
-        #     print("Recalled based on Short Term Memory")
-        #     print(f"Input: {word_pairs[0]} Recalled: {word_pairs[1]} Strength: {word_pairs[2]} \n")
-
-        self.brain.end_simulation()
-        self.data_monitor.print_log()
+            self.brain.end_simulation()
+            self.data_monitor.print_log()
 
         return self.remember_from_ltm()
-        # for i in range(1000):
-        #     self.clock.tick()
-        #     self.brain.time_tick(with_trace)
-        #
-        # # print(self.brain)
-        # print(self.brain.remember(with_original=True))
 
     def run_2(self, distraction_level=0, total_time=20, fuzzy_threshold=0.03):
-        self.brain.distraction_level = distraction_level
-        self.brain.fuzzy_threshold = fuzzy_threshold
+        if total_time:
+            self.brain.distraction_level = distraction_level
+            self.brain.fuzzy_threshold = fuzzy_threshold
 
-        # Load all the words for the trial
-        for word in self.rehearsal_list:
-            self.brain.rehearse(word)
+            # Load all the words for the trial
+            for word in self.rehearsal_list:
+                self.brain.rehearse(word)
 
-        # Let time pass without rehearsing
-        for i in range(0, total_time):
-            self.data_monitor.tick()
-            self.brain.time_tick()
+            # Let time pass without rehearsing
+            for i in range(0, total_time):
+                self.time_tick(self.brain)
 
-        self.brain.end_simulation()
-        self.data_monitor.print_log()
+            self.brain.end_simulation()
+            self.data_monitor.print_log()
 
         return self.brain.recall(with_original=True)
 
@@ -229,9 +226,7 @@ class Simulation:
     def random_words(self, number):
         return [random.choice(list(self.brain.cortex.sensory_memory.word_mapping.keys())) for i in range(number)]
 
-    def run_rundus_inspired_trial(self, distraction_level=0, total_time=200,
-                                  rehearsal_interval=5, fuzzy_threshold=0, max_words_per_second=4,
-                                  rehearsal_strategy="oldest_first", brain=None):
+    def run_rundus_inspired_trial(self, max_words_per_second=4, brain=None):
         # 20 words (technically supposed to be nouns, but using words instead), presented for 5 seconds each.
         # 5 second interval between words, free to rehearse any word as long
         # as rehearsal filled the intervals. Recall the words in any order.
@@ -246,14 +241,14 @@ class Simulation:
             for i in range(5):
                 for j in range(random.randint(1, max_words_per_second)):
                     brain.rehearse(word)
-                brain.time_tick()
+                self.time_tick(brain)
 
             # rehearsal interval
             for i in range(5):
                 stm_words = brain.hippocampus.short_term_memory.retrieve(False)
                 for j in range(random.randint(1, max_words_per_second)):
                     brain.rehearse(brain.cortex.sensory_memory.decode(*stm_words[j % len(stm_words)]))
-                brain.time_tick()
+                self.time_tick(brain)
 
         recalled_words = brain.dump()
 
@@ -269,10 +264,16 @@ class Simulation:
     def run_rundus_inspired_experiment(self, data_file, trials=10):
         # run multiple trials
 
-        for trial in range(trials):
-            data_monitor = DataMonitor()
-            brain = Brain(data_monitor)
-            self.preload(data_file, brain=brain)
-            self.data_monitor.stash_rundus_results(self.run_rundus_inspired_trial(brain=brain))
+        if trials:
+            for trial in range(trials):
+                self.data_monitor.log(f"{'=' * 100}")
+                self.data_monitor.log(f"Output for Trial {trial}")
+                # data_monitor = DataMonitor()
+                brain = Brain(self.data_monitor)
+                self.preload(data_file, brain=brain)
+                self.data_monitor.stash_rundus_results(self.run_rundus_inspired_trial(brain=brain))
+                brain.end_simulation()
+
+                # self.data_monitor.extend_log(brain.data_monitor.trace_log_lines)
 
         return self.data_monitor.rundus_results

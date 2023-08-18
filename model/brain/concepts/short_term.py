@@ -2,11 +2,12 @@ from random import random, randint
 
 STRENGTH_THRESHOLD = 10  # how strong the memory in stm has to be before it is moved to LTM
 STRENGTH_BOOST = 2.2  # how much to boost the strength if this is an item already in LTM
-STRENGTH_INCREMENT = 1  # how much to increase strength each time an item already in STM is added again
+STRENGTH_DEFAULT = 5  # the strength of an item just entering STM
+STRENGTH_INCREMENT = 1.2  # how much to increase strength each time an item already in STM is added again
 # TODO: Rate of decay -> should be rapid for first 18 seconds - Peterson and Peterson (1959)
 #  https://psycnet-apa-org.proxy.lib.uwaterloo.ca/fulltext/1960-05499-001.pdf
 #  implement exponential decay perhaps rather than constant?
-STRENGTH_DECREMENT = 1  # how much to decrease strength each second
+STRENGTH_DECREMENT = 0.2  # how much to decrease strength each second
 
 
 class MemoryRegister:
@@ -67,7 +68,7 @@ class ShortTermMemory:
             memory.total_age += 1
             memory.strength -= STRENGTH_DECREMENT
             memory.value = self.fuzz(memory)
-            if memory.age >= self.current_max_duration():
+            if memory.age >= self.current_max_duration() or memory.strength <= 0:
                 forget.append(memory)
             if memory.strength >= STRENGTH_THRESHOLD:
                 store.append(memory)
@@ -83,7 +84,7 @@ class ShortTermMemory:
             self.data_monitor.add_data_point(category=self.data_monitor.Category.STM,
                                              action=self.data_monitor.Action.FORGET,
                                              value=[memory.original_value, memory.value, memory.age, memory.total_age])
-            self.data_monitor.log(f"Item too old forgetting {memory}\n")
+            self.data_monitor.log(f"Item too old or weak, forgetting {memory}\n")
             self.data_monitor.max_ages.append(memory.total_age)
             self.registers.remove(memory)
 
@@ -135,12 +136,13 @@ class ShortTermMemory:
                 memory.age = 0
                 memory.strength += STRENGTH_INCREMENT  # The more you see something the stronger the memory
                 memory.value = value  # Reset to the original encoding as we've refreshed our input
+                self.data_monitor.log(f"Item {value} already in STM, resetting age. {memory}")
 
         if not exists:
             # See if memory is already in long term memory and boost strength
             # to mimic the idea of it being easier to remember things you are familiar with
             # https://link.springer.com/article/10.3758/s13423-015-0889-1
-            strength = STRENGTH_INCREMENT
+            strength = STRENGTH_DEFAULT
             if value:
                 existing_memory = self.hippocampus.retrieve_from_long_term_storage(*value)
                 if existing_memory:
@@ -148,6 +150,7 @@ class ShortTermMemory:
                     self.data_monitor.log(f"Item {value} recognized, boosting strength")
 
                 self.registers.append(MemoryRegister(value, 0, strength, self.data_monitor))
+                self.data_monitor.log(f"Item {value} added to STM.")
 
         # if we have too many items then purge them according to the purge strategy.
         self.get_overflow_purge_function()()

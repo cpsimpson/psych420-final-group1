@@ -32,7 +32,7 @@ app_ui = ui.page_fluid(
             ui.input_slider(id="fuzzy_threshold", label="Fuzziness Threshold", value=3, min=0, max=1000),
             ui.input_numeric(id="total_time", label="Simulation Time Length (s)", value=100, min=0, max=10000),
             ui.input_select(id="purge_strategy", label="STM Purge Strategy", choices=("oldest", "weakest")),
-            ui.input_text(id="word_list", label="Words to Rehearse", value="person, man, woman, camera, tv"),
+            ui.input_text(id="word_list", label="Words to Rehearse", value="person, cat, sunshine, murder, seven"),
             ui.input_action_button("run_simulation_1", "Re-Run Simulation"),
             ui.br(),
             ui.hr(),
@@ -62,7 +62,7 @@ app_ui = ui.page_fluid(
             ui.input_numeric(id="s2_total_time", label="Simulation Time Length (s)", value=5, min=0, max=100),
             ui.input_slider(id="s2_fuzzy_threshold", label="Fuzziness Threshold", value=3, min=0, max=1000),
             ui.input_select(id="s2_purge_strategy", label="STM Purge Strategy", choices=("oldest", "weakest")),
-            ui.input_text(id="s2_word_list", label="Words to Rehearse", value="person, man, woman, camera, tv"),
+            ui.input_text(id="s2_word_list", label="Words to Rehearse", value="bird, sing, fork, woman, mosaic"),
             ui.input_action_button("run_simulation_2", "Re-Run Simulation"),
             ui.br(),
             ui.hr(),
@@ -112,7 +112,7 @@ app_ui = ui.page_fluid(
 
 
 def server(input: Inputs, output: Outputs, session: Session):
-    s = reactive.Value(Simulation())
+    s1 = reactive.Value(Simulation())
     s2 = reactive.Value(Simulation())
     s3 = reactive.Value(Simulation())
 
@@ -124,23 +124,28 @@ def server(input: Inputs, output: Outputs, session: Session):
         fuzziness_threshold = (input.fuzzy_threshold() / 1000)
         total_time = input.total_time()
         purge_strategy = input.purge_strategy()
+        rehearsal_interval = input.rehearsal_interval()
 
         word_list = [x.strip().lower() for x in input.word_list().split(',')]
 
         p = ui.Progress()
         p.set(1 / 30, message="Simulating, please wait...")
-        s.set(Simulation(word_list))
+        s1.set(Simulation(word_list))
         infile = Path(__file__).parent / "data/BRM-emot-submit.csv"
         p.set(5 / 30, message="Loading sensory encodings, please wait...")
-        s.get().preload(infile)
-        s.get().stm_purge_strategy = purge_strategy
+        s1.get().preload(infile)
+        s1.get().stm_purge_strategy = purge_strategy
         p.set(20 / 30, message="Simulating rehearsal over time, please wait...")
         g = ""
-        for word_pairs in s.get().run_1(distraction_level=distraction_level,
+        for word_pairs in s1.get().run_1(distraction_level=distraction_level,
                                         total_time=total_time,
-                                        fuzzy_threshold=fuzziness_threshold):
+                                        fuzzy_threshold=fuzziness_threshold,
+                                        rehearsal_interval=rehearsal_interval):
             p.set(30 / 30, message="Recalling from short term memory, please wait...")
-            g += f"Input: {word_pairs[0]} Recalled: {word_pairs[1]} Strength: {word_pairs[2]} <br>"
+            if len(word_pairs) >= 3:
+                g += f"Input: {word_pairs[0]} Recalled: {word_pairs[1]} Strength: {word_pairs[2]} <br>"
+            else:
+                g += f"{word_pairs} <br>"
         p.close()
 
         return g
@@ -149,24 +154,24 @@ def server(input: Inputs, output: Outputs, session: Session):
     @render.text
     def simulation_1_trace():
         log = ""
-        for line in s.get().data_monitor.trace_log_lines:
+        for line in s1.get().data_monitor.trace_log_lines:
             log += f"{line} <br>"
         return log
 
     @output
     @render.text
     def simulation_1_memory():
-        return rendering.render_recalled_words(s.get().remember_from_ltm())
+        return rendering.render_recalled_words_from_ltm(s1.get().remember_from_ltm())
 
     @output
     @render.text
     def simulation_1_recall():
-        return rendering.render_recalled_words(s.get().recall_from_stm())
+        return rendering.render_recalled_words_from_stm(s1.get().recall_from_stm())
 
     @output
     @render.text
     def rehearsal_words():
-        return s.get().rehearsal_list
+        return s1.get().rehearsal_list
 
     @output
     @render.ui
@@ -182,11 +187,11 @@ def server(input: Inputs, output: Outputs, session: Session):
 
         fig, ax = plt.subplots()
 
-        series = s.get().data_monitor.data_for_decay_factors()
+        series = s1.get().data_monitor.data_for_decay_factors()
 
         for item, item_series in series.items():
-            word = s.get().lookup_word_from_encoding(item)
-            if word in s.get().rehearsal_list:
+            word = s1.get().lookup_word_from_encoding(item)
+            if word in s1.get().rehearsal_list:
                 ax.plot(item_series["xs"], item_series["ys"], linewidth=2.0, label=word)
 
         ax.legend(loc="upper right")
@@ -200,18 +205,18 @@ def server(input: Inputs, output: Outputs, session: Session):
 
         fig, ax = plt.subplots()
 
-        series = s.get().data_monitor.rehearsal_points()
+        series = s1.get().data_monitor.rehearsal_points()
 
         for word, item_series in series.items():
-            if word in s.get().rehearsal_list:
+            if word in s1.get().rehearsal_list:
                 ax.plot(item_series["xs"], item_series["ys"], marker='o', markersize=2.0,
                         label=f"Rehearsal Point - {word}", linestyle='')
 
-        age_series = s.get().data_monitor.word_age()
+        age_series = s1.get().data_monitor.word_age()
 
         for item, item_series in age_series.items():
-            word = s.get().lookup_word_from_encoding(item)
-            if word in s.get().rehearsal_list:
+            word = s1.get().lookup_word_from_encoding(item)
+            if word in s1.get().rehearsal_list:
                 ax.plot(item_series["xs"], item_series["ys"], marker="x", label=f"Age - {word}", linestyle='')
 
         ax.legend(loc="upper right")
@@ -223,7 +228,7 @@ def server(input: Inputs, output: Outputs, session: Session):
     def simulation_1_max_ages():
         plt.style.use('_mpl-gallery')
 
-        x = s.get().data_monitor.max_ages
+        x = s1.get().data_monitor.max_ages
 
         fig, ax = plt.subplots()
         ax.hist(x)
@@ -260,7 +265,7 @@ def server(input: Inputs, output: Outputs, session: Session):
     @output
     @render.text
     def simulation_2_recall():
-        return rendering.render_recalled_words(s2.get().recall_from_stm())
+        return rendering.render_recalled_words_from_stm(s2.get().recall_from_stm())
 
     @output
     @render.text
@@ -357,9 +362,9 @@ def server(input: Inputs, output: Outputs, session: Session):
         s3.set(Simulation())
         infile = Path(__file__).parent / "data/BRM-emot-submit.csv"
         p.set(5 / 30, message="Loading sensory encodings, please wait...")
-        s2.get().preload(infile)
+        s3.get().preload(infile)
         p.set(20 / 30, message="Simulating time passing, please wait...")
-        s2.get().run_rundus_inspired_experiment(infile, number_trials)
+        s3.get().run_rundus_inspired_experiment(infile, number_trials)
         p.set(30 / 30, message="Completing experiment...")
         p.close()
 
@@ -378,7 +383,7 @@ def server(input: Inputs, output: Outputs, session: Session):
 
         fig, ax = plt.subplots()
 
-        probs = s2.get().data_monitor.rundus_results_probabilities()
+        probs = s3.get().data_monitor.rundus_results_probabilities()
 
         ax.plot(range(1, len(probs) + 1), probs, linewidth=2.0, label="Model recall probability")
 

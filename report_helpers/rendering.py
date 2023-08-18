@@ -1,10 +1,20 @@
 from shiny import ui
 
 
-def render_recalled_words(recalled_from_stm):
+def render_recalled_words_from_stm(recalled_from_stm):
     o = []
-    for original, recalled, strength in recalled_from_stm:
+    for memory in recalled_from_stm:
+        original, recalled, strength = memory
         o.append(f"{'/'.join(recalled)}")
+
+    return ", ".join(o)
+
+
+def render_recalled_words_from_ltm(recalled_from_ltm):
+    o = []
+    for memory in recalled_from_ltm:
+        # original, recalled, strength = memory
+        o.append(f"{'/'.join(memory)}")
 
     return ", ".join(o)
 
