@@ -10,54 +10,53 @@ report_path = Path(__file__).parent / "report"
 
 app_ui = ui.page_fluid(
     ui.include_css(report_path / "report.css"),
+    ui.include_js(report_path / "report.js"),
     ui.panel_title('Memory Simulation'),  # 1
     # ui.layout_sidebar(
     #     ui.panel_sidebar(
     #     ),
     ui.navset_tab(
-        ui.nav("Background Information",
-               # ui.panel_main(
-               get_markdown("background", report_path),
-               # )
-               ),
-        ui.nav("Our Model",
-               get_markdown("model", report_path),
-               ),
+        ui.nav(
+            "Background Information",
+            get_markdown("background", report_path),
+        ),
+        ui.nav(
+            "Our Model",
+            get_markdown("model", report_path),
+        ),
 
-        ui.nav("Simulation 1",
-               # ui.panel_main(
-               get_markdown("simulation_1", report_path),
-               ui.br(),
-               ui.input_slider(id="distraction_level", label="Distraction Level", value=20, min=0, max=100),
-               ui.input_slider(id="rehearsal_interval", label="Rehearsal Interval (s)", value=10, min=0, max=100),
-               ui.input_slider(id="fuzzy_threshold", label="Fuzziness Threshold", value=3, min=0, max=1000),
-               ui.input_numeric(id="total_time", label="Simulation Time Length (s)", value=100, min=0, max=10000),
-               ui.input_select(id="purge_strategy", label="STM Purge Strategy", choices=("oldest", "weakest")),
-               ui.input_text(id="word_list", label="Words to Rehearse", value="person, man, woman, camera, tv"),
-               ui.input_action_button("run_simulation_1", "Re-Run Simulation"),
-               # ui.input_action_button("toggle_trace", "Toggle Trace Log"),
-               ui.br(),
-               ui.hr(),
-               ui.h4("Simulation Results"),
-               ui.h5("Words Rehearsed"),
-               ui.output_text_verbatim("rehearsal_words"),
+        ui.nav(
+            "Simulation 1",
+            get_markdown("simulation_1", report_path),
+            ui.br(),
+            ui.input_slider(id="distraction_level", label="Distraction Level", value=20, min=0, max=100),
+            ui.input_slider(id="rehearsal_interval", label="Rehearsal Interval (s)", value=10, min=0, max=100),
+            ui.input_slider(id="fuzzy_threshold", label="Fuzziness Threshold", value=3, min=0, max=1000),
+            ui.input_numeric(id="total_time", label="Simulation Time Length (s)", value=100, min=0, max=10000),
+            ui.input_select(id="purge_strategy", label="STM Purge Strategy", choices=("oldest", "weakest")),
+            ui.input_text(id="word_list", label="Words to Rehearse", value="person, man, woman, camera, tv"),
+            ui.input_action_button("run_simulation_1", "Re-Run Simulation"),
+            ui.br(),
+            ui.hr(),
+            ui.h4("Simulation Results"),
+            ui.h5("Words Rehearsed"),
+            ui.output_text_verbatim("rehearsal_words"),
 
-               ui.h5("Words Recalled from STM"),
-               ui.output_text_verbatim("simulation_1_recall"),
+            ui.h5("Words Recalled from STM"),
+            ui.output_text_verbatim("simulation_1_recall"),
 
-               ui.h5("Original Words Remembered from LTM"),
-               ui.output_text_verbatim("simulation_1_memory"),
+            ui.h5("Original Words Remembered from LTM"),
+            ui.output_text_verbatim("simulation_1_memory"),
 
-               ui.h5("STM Memory Age Fuzzing Factor over Time"),
-               ui.output_plot("simulation_1_fuzz_factors"),
-               ui.h5("STM Memory Age over Time"),
-               ui.output_plot("simulation_1_rehearsals"),
-               ui.h5("Max Ages"),
-               ui.output_plot("simulation_1_max_ages"),
-               ui.h5("Output Trace", id="s1-trace-header"),
-               ui.output_ui("simulation_1_trace"),
-
-               ),
+            ui.h5("STM Memory Age Fuzzing Factor over Time"),
+            ui.output_plot("simulation_1_fuzz_factors"),
+            ui.h5("STM Memory Age over Time"),
+            ui.output_plot("simulation_1_rehearsals"),
+            ui.h5("Max Ages"),
+            ui.output_plot("simulation_1_max_ages"),
+            ui.h5("Output Trace", id="s1-trace-header"),
+            ui.output_ui("simulation_1_trace"),
+        ),
         ui.nav(
             "Simulation 2",
             get_markdown("simulation_2", report_path),
@@ -82,9 +81,7 @@ app_ui = ui.page_fluid(
             ui.h5("Max Ages"),
             ui.output_plot("simulation_2_max_ages"),
             ui.h5("Output Trace", id="s2-trace-header"),
-            # ui.input_action_button("s2_toggle_trace", "Toggle Trace Log"),
             ui.output_ui("simulation_2_trace"),
-
         ),
         ui.nav(
             "Simulation 3",
@@ -105,7 +102,9 @@ app_ui = ui.page_fluid(
         ),
         ui.nav(
             "References",
-            get_markdown("references", report_path),
+            ui.TagList(
+                get_markdown("references", report_path),
+            ), value="references",
         ),
 
     ))

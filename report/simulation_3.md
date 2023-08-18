@@ -1,6 +1,7 @@
 #### Simulation 3
 
-In this simulation we attempt to reproduce the results of Rundus' 1971 experiment [(Rundus, 1971)](#rundus-1971).
+In this simulation we attempt to reproduce the results of Rundus' 1971 experiment
+<a href="" onclick="customHref('references#rundus-1971');">(Rundus, 1971)</a>.
 
 According to the experimental data Rundus found that there is a U-shaped
 pattern in recall with rehearsal. In other words, he found support 
