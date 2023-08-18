@@ -20,7 +20,7 @@ approximately 2/3 of intractable seizure cases and throughout
 the 20th century it became clear that performing bilateral 
 temporal lobectomies (as in the case of patient H.M.) resulted 
 in profound impairments to the patient's declarative memory 
-<a href="" onclick="customHref('references#téllez-zenteno-2012');">(Téllez-Zenteno & Hernández-Ronquillo, 2012)</a>. 
+<a href="#" onclick="customHref('references#téllez-zenteno-2012');">(Téllez-Zenteno & Hernández-Ronquillo, 2012)</a>. 
 In the case of H.M. following the removal of most of his 
 hippocampus he could shake your hand and carry on a conversation, 
 but after you left the room and his thoughts drifted from your 
@@ -28,7 +28,7 @@ encounter he'd have no memory that you were ever there. It was
 this growing recognition of the role of different brain systems 
 being involved in short term vs. long term memory that inspired 
 Atkinson and Shiffrin's MSM ([See Figure 1](#figure-1)) 
-<a href="" onclick="customHref('references');"></a>.
+<a href="#" onclick="customHref('references');"></a>.
 [(Shiffrin & Atkinson, 1969)](#shiffrin-atkinson-1969).  
 
 <a id="figure-1"></a>_Figure 1: An overview of Atkinson and Shiffrin's Multi Store Model_
@@ -48,7 +48,7 @@ to get their names into introductory psych textbooks… The common theme
 amongst their models is that you’re not fully aware of everything 
 around you, some of the information your senses register is forgotten 
 before reaching other cognitive processes 
-<a href="" onclick="customHref('references#treisman-1969');">(Treisman, 1969)</a>. 
+<a href="#" onclick="customHref('references#treisman-1969');">(Treisman, 1969)</a>. 
 That there are limits to
 our processing capacity is a theme that will appear again as we’re 
 discussing the short-term memory stage. 
@@ -59,7 +59,7 @@ discussing the short-term memory stage.
 Following George Miller’s rather poetic reports of how the magical 
 number seven was stalking and pursuing him throughout his work the 
 concept of “short-term” memory became widely established 
-<a href="" onclick="customHref('references#miller-1956');">(Miller, 1956)</a>. 
+<a href="#" onclick="customHref('references#miller-1956');">(Miller, 1956)</a>. 
 If you’re
 provided with a list of numbers or a list of random words, there’s a 
 limit to the number of items you can hold in your cognitive buffer 
@@ -69,7 +69,7 @@ items will become increasingly difficult to remember correctly.
 With sufficient rehearsal, e.g., repeating a list over and over, it is
 possible to move memories into a more stable long-term storage from 
 which they can later be retrieved 
-<a href="" onclick="customHref('references#cowan-2008');">(Cowan, 2008)</a>.
+<a href="#" onclick="customHref('references#cowan-2008');">(Cowan, 2008)</a>.
 
 #### Long Term Memory
 
@@ -77,18 +77,18 @@ The early work of Ebbinghaus demonstrates that while memories stored
 in the long term stage are more enduring than those held in the 
 short-term stage the passage of time will make retrieval increasingly 
 difficult 
-<a href="" onclick="customHref('references#murre-dros-2015');">(Murre & Dros, 2015)</a>. 
+<a href="#" onclick="customHref('references#murre-dros-2015');">(Murre & Dros, 2015)</a>. 
 The retention of information can also be disrupted by 
 the presence of similar or competing information, this can occur 
 proactively when previously acquired knowledge needs to be unlearned 
 e.g., you have to change your password because the university got 
 hacked 
-<a href="" onclick="customHref('referencesbass-oswald-2014');">(Bass & Oswald, 2014)</a>. 
+<a href="#" onclick="customHref('referencesbass-oswald-2014');">(Bass & Oswald, 2014)</a>. 
 Or it can occur retroactively when new information makes 
 it difficult to remember existing details e.g., after using Emacs 
 exclusively for 2 years you find you’ve forgotten the keyboard 
 shortcuts in Microsoft Word 
-<a href="" onclick="customHref('references#sosic-vasic-et-al-2018');">(Sosic-Vasic et al., 2018)</a>.
+<a href="#" onclick="customHref('references#sosic-vasic-et-al-2018');">(Sosic-Vasic et al., 2018)</a>.
 
 While the process of retrieval in the MSM model is typically 
 represented with memories being encoded as discrete units. 
@@ -96,7 +96,7 @@ Modern theoretical understandings of “engrams” (i.e., units of
 cognitive information) suggest that memories are distributed 
 throughout the brain with structures like the hippocampus acting 
 as an indexing agent 
-<a href="" onclick="customHref('references#teyler-rudy-2007');">(Teyler & Rudy, 2007)</a>. 
+<a href="#" onclick="customHref('references#teyler-rudy-2007');">(Teyler & Rudy, 2007)</a>. 
 In practice this means that different 
 aspects of memory like the logical semantic definition of a word 
 (e.g., murder = unjustifiable homicide) and the affective dimensions
@@ -107,7 +107,7 @@ With further investigation it became clear that their anterograde
 amnesia only affected certain memory domains. Patient H.M. for 
 instance became increasingly proficient at drawing stars in a mirror
 (a procedural memory task) 
-<a href="" onclick="customHref('references#squire-2009');">(Squire, 2009)</a>.
+<a href="#" onclick="customHref('references#squire-2009');">(Squire, 2009)</a>.
 In another example Édouard Claparède 
 was an early Swiss neurologist who is notorious for shaking the hand
 of one of his patient’s while holding a concealed pin. 
@@ -116,18 +116,18 @@ forgotten the episodic details of the handshake but was unwilling to
 shake Claparède’s hand a second time despite not having a clearly
 articulable reason for their hesitancy (an example of behavioral 
 conditioning) 
-<a href="" onclick="customHref('references#feinstein-et-al-2010');">(Feinstein et al., 2010)</a>.
+<a href="#" onclick="customHref('references#feinstein-et-al-2010');">(Feinstein et al., 2010)</a>.
 The significance of these findings is that they 
 demonstrate that there are different forms of long term memory 
 that aren’t well represented as a single stage in the MSM 
-<a href="" onclick="customHref('references#fox-et-al-2017');">(Fox et al., 2017)</a>.
+<a href="#" onclick="customHref('references#fox-et-al-2017');">(Fox et al., 2017)</a>.
 
 ### Emotion and Memory
 
 The emotional dimensions of valence and arousal have been 
 demonstrated to engage distinct cognitive and neural processes 
 contributing to enhanced memory 
-<a href="" onclick="customHref('references#kensinger-corkin-2004');">(Kensinger & Corkin, 2004)</a>. 
+<a href="#" onclick="customHref('references#kensinger-corkin-2004');">(Kensinger & Corkin, 2004)</a>. 
 Brown and Kulik’s work on 
 “flashbulb memories” (i.e., memories of highly emotional episodic 
 events like 9/11 or the Challenger disaster) reinforced earlier 
@@ -139,19 +139,19 @@ themselves can be subject to manipulation, in one example students
 asked to recall their emotional state before and after receiving an 
 exam grade will tend to overestimate their feelings of anxiety after 
 receiving a poor mark 
-<a href="" onclick="customHref('references#levine-pizarro-2004');">(Levine & Pizarro, 2004)</a>. 
+<a href="#" onclick="customHref('references#levine-pizarro-2004');">(Levine & Pizarro, 2004)</a>. 
 
 ### Logic vs. Emotion
 
 Prior memory models have investigated how semantic relatedness along 
 logical dimensions influences memory and learning 
-<a href="" onclick="customHref('references#mcclelland-et-al-1995');">(McClelland et al., 1995)</a>.
+<a href="#" onclick="customHref('references#mcclelland-et-al-1995');">(McClelland et al., 1995)</a>.
 We thought it would be interesting to instead explore how random 
 drift along affective dimensions could impact memory over time. 
 There is evidence that some material due to its affective dimensions 
 is more likely to be stored and recalled when one is in a particular 
 mood 
-<a href="" onclick="customHref('references#ucros-1989');">(Ucros, 1989)</a>. 
+<a href="#" onclick="customHref('references#ucros-1989');">(Ucros, 1989)</a>. 
 We wanted to explore the idea that when presented with a 
 stimulus if we encode the affective dimensions of that stimulus, how 
 effective a memory trace based on those emotional characteristics 
@@ -160,10 +160,10 @@ effective.. but we’ll discuss that more later on). The PAD (pleasure,
 arousal, dominance) model developed by Russell and Mehrabian tries 
 to characterize human emotional experiences along three dimensions 
 (see [Figure 2](#figure-2)) 
-<a href="" onclick="customHref('references#russell-mehrabian-1977');">(Russell & Mehrabian, 1977)</a>.
+<a href="#" onclick="customHref('references#russell-mehrabian-1977');">(Russell & Mehrabian, 1977)</a>.
 To encode stimuli with these dimensions we used 
 Warriner’s database of lexical norms 
-<a href="" onclick="customHref('references#warriner-et-al-2013');">(Warriner et al., 2013)</a>.
+<a href="#" onclick="customHref('references#warriner-et-al-2013');">(Warriner et al., 2013)</a>.
 
 <a id="figure-2"></a>_Figure 2: PAD (pleasure, arousal, dominance) model_
 
@@ -193,7 +193,7 @@ A limitation of connectionist models is that they’re prone to
 catastrophic forgetting when they attempt to emulate learning and 
 memory on integrated learning tasks (e.g., tasks that require 
 memorizing two interleaved lists of items) 
-<a href="" onclick="customHref('references#mcclelland-et-al-1995');">(McClelland et al., 1995)</a>.
+<a href="#" onclick="customHref('references#mcclelland-et-al-1995');">(McClelland et al., 1995)</a>.
 
 <a id="figure-3"></a>_Figure 3: A tree-like hierarchical representation of semantic knowledge that forms the basis of connectionist models._ 
 
@@ -215,7 +215,7 @@ memory traces. The sum of these activations can be thought of as an
 “echo”, and if the collective echo reaches a certain threshold the 
 system will “recognize” the stimuli, if the echo does not reach the 
 threshold, then it will not recognize the stimulus ([Figure 5](#figure-5)) 
-<a href="" onclick="customHref('references#hintzman-1984');">(Hintzman, 1984)</a>.
+<a href="#" onclick="customHref('references#hintzman-1984');">(Hintzman, 1984)</a>.
 
 <a id="figure-5"></a>_Figure 5: A representation of multiple memory traces in a Minerva model, in which a stimulus is being compared with existing memories on variety of perceptual dimensions._
 

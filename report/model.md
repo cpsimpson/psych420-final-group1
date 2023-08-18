@@ -121,7 +121,7 @@ Recent work on human lexical development has found that the affective
 dimensions of words are much less useful for predicting the 
 development and evolution of language than other types of semantic 
 knowledge like logical associations 
-<a href="" onclick="customHref('references#brochhagen-et-al-2023');">(Brochhagen et al., 2023)</a>. 
+<a href="#" onclick="customHref('references#brochhagen-et-al-2023');">(Brochhagen et al., 2023)</a>. 
 In their paper Brochhagen 
 used the same lexical database from Warriner that we did to classify 
 the affective characteristics of words, but being savvier than us 
@@ -137,7 +137,7 @@ these other models, instead of using binary search trees for three
 emotional dimensions we could use a multidimensional or kd-tree in 
 which all the semantic properties of the words were represented in 
 different dimensions 
-<a href="" onclick="customHref('references#ram-sinha-2019');">(Ram & Sinha, 2019)</a>.
+<a href="#" onclick="customHref('references#ram-sinha-2019');">(Ram & Sinha, 2019)</a>.
 
 The nearest neighbors search algorithm for kd-trees operates 
 similarly to a binary search tree with a few exceptions. The 
