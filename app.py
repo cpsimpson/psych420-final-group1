@@ -9,8 +9,6 @@ from simulation import Simulation
 report_path = Path(__file__).parent / "report"
 
 app_ui = ui.page_fluid(
-    ui.include_js(report_path / "report.js"),
-    ui.include_css(report_path / "report.css"),
     ui.panel_title('Memory Simulation'),
     # ui.layout_sidebar(
     #     ui.panel_sidebar(
@@ -107,7 +105,12 @@ app_ui = ui.page_fluid(
             ), value="references",
         ),
 
-    ))
+    ),
+
+    ui.include_js(report_path / "report.js"),
+    ui.include_css(report_path / "report.css"),
+
+)
 
 
 def server(input: Inputs, output: Outputs, session: Session):
