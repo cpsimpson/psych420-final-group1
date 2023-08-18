@@ -2,8 +2,14 @@
 
 There is a hosted version of the final report: https://cpsimpson.github.io/psych420-final-group1/
 
+## To view our report locally
 
-## To just run the simulations
+1. Run local python static website
+    `python3 -m http.server --directory docs --bind 0.0.0.0 8008`
+2. Open in browser
+    `http://127.0.0.1:8008`
+
+## To just run the simulations in a Terminal
 
 We have provided a main file which will run our simulations locally with default values.
 
