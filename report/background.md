@@ -28,8 +28,7 @@ encounter he'd have no memory that you were ever there. It was
 this growing recognition of the role of different brain systems 
 being involved in short term vs. long term memory that inspired 
 Atkinson and Shiffrin's MSM ([See Figure 1](#figure-1)) 
-<a href="#" onclick="customHref('references');"></a>.
-[(Shiffrin & Atkinson, 1969)](#shiffrin-atkinson-1969).  
+<a href="#" onclick="customHref('references#shiffrin-atkinson-1969');">(Shiffrin & Atkinson, 1969)</a>.
 
 <a id="figure-1"></a>_Figure 1: An overview of Atkinson and Shiffrin's Multi Store Model_
 
