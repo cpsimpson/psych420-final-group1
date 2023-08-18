@@ -3,4 +3,4 @@
   text-indent: -22px ;
 }
 
-img { width: 600px; }
+img { max-width: 600px; }

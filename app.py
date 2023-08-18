@@ -10,7 +10,10 @@ report_path = Path(__file__).parent / "report"
 
 app_ui = ui.page_fluid(
     ui.panel_title('Memory Simulation'),
-    ui.include_css(report_path / "report.css"),
+    ui.tags.head(
+        ui.tags.link(rel="stylesheet", href="report.css")
+    ),
+    ui.include_js(report_path / "report.js"),
     ui.navset_tab(
         ui.nav(
             "Background Information",
@@ -103,7 +106,6 @@ app_ui = ui.page_fluid(
         ),
 
     ),
-    ui.include_js(report_path / "report.js"),
 
 
 )
