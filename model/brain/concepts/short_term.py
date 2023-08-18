@@ -137,10 +137,9 @@ class ShortTermMemory:
                 memory.value = value  # Reset to the original encoding as we've refreshed our input
 
         if not exists:
-            # see if memory is already in long term memory and boost strength
-            # to mimic the idea of it being easier to remember things you know -
-            # TODO: find data to back this up. Right now Caroline *thinks* she read this,
-            #  but isn't 100% sure.
+            # See if memory is already in long term memory and boost strength
+            # to mimic the idea of it being easier to remember things you are familiar with
+            # https://link.springer.com/article/10.3758/s13423-015-0889-1
             strength = STRENGTH_INCREMENT
             if value:
                 existing_memory = self.hippocampus.retrieve_from_long_term_storage(*value)

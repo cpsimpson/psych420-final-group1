@@ -36,7 +36,9 @@ randomly sense data in the cortex or explicitly through the "rehearse" function.
 
 When an item enters short term memory it is assigned a baseline strength. This 
 strength is increased if the item exists in long term memory already 
-(i.e. through familiarity). It is also increased with repetition. The strength 
+(i.e. through familiarity) 
+<a href="#" onclick="customHref('references#reder-et-al-2016');">(Reder et al., 2016)</a>. 
+It is also increased with repetition. The strength 
 decreases as time passes. We have currently implemented this as a constant decrease
 over time, but it should likely be reduced by an exponential decay factor instead.
 If the strength threshold is reached the memory is pushed into long term memory.

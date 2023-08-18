@@ -24,6 +24,8 @@
 
 <a id="ram-sinha-2019"></a><p class="hangingindent">Ram, P., & Sinha, K. (2019, July). Revisiting kd-tree for nearest neighbor search. _In Proceedings of the 25th acm sigkdd international conference on knowledge discovery & data mining_ (pp. 1378-1388). https://doi.org/10.1145/3292500.3330875 </p>
 
+<a id="reder-et-al-2016"></a><p class="hangingindent">Reder, L. M., Liu, X. L., Keinath, A., & Popov, V.. (2016). Building knowledge requires bricks, not sand: The critical role of familiar constituents in learning. _Psychonomic Bulletin & Review, 23_(1), 271–277. https://doi.org/10.3758/s13423-015-0889-1 </p>
+
 <a id="rundus-1971"></a><p class="hangingindent">Rundus, D. (1971). Analysis of rehearsal processes in free recall. _Journal of experimental psychology, 89_(1), 63-77. https://doi.org/10.1037/h0031185 </p>
 
 <a id="russell-mehrabian-1977"></a><p class="hangingindent">Russell, J. A., & Mehrabian, A. (1977). Evidence for a three-factor theory of emotions. _Journal of research in Personality, 11_(3), 273-294. https://doi.org/10.1016/0092-6566(77)90037-X </p>
